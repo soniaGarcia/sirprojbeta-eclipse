@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+   
+   <ui:define name="content">
+        <p:panel id="panelUsuario" header="Informacion Usuario" style="width: 750 px" >
+              <h:form id="mensajes">                
+                <p:growl id="mensaje" showDetail="true" life="10000" /> 
+            </h:form>
+            #{usuario.fillTable()}
+            #{usuario.fillComboBoxRol()}             
+            <h:form id="usuario">
+              <p:growl id="growl" showDetail="true" life="3000" />  
+                <h:panelGrid id="pUsuario" columns="4" style="width: inherit">
+                    <h:outputLabel value="Nombre Usuario" />
+                    <p:inputText value="#{usuario.usuarioObj.nombre}" style="width: 400px"/>
+                    <h:outputLabel value="Apellidos Usuario" />
+                    <p:inputText value="#{usuario.usuarioObj.apellido}" style="width: 400px" />
+                    <h:outputLabel value="Nombre Login" />
+                    <p:inputText value="#{usuario.usuarioObj.usuario}" style="width: 400px" />
+                    
+                    <h:outputLabel value="Rol:" />
+                    <p:selectOneMenu value="#{usuario.ctgCatalogoObj.ctgCatId}">
+                         <f:selectItems value="#{usuario.comboBoxRoles}" var="r" itemLabel="#{r.ctgCatNombre}" itemValue="#{r.ctgCatId}" />
+                    </p:selectOneMenu>   
+                    
+                    <h:outputLabel value="Contraseña" />                
+                   <p:password id="psw1" value="#{usuario.usuarioObj.password}" feedback="true" 
+                               promptLabel="Introduzca una Contraseña" weakLabel="Debil"  
+                                goodLabel="Buena" strongLabel="Excelente"/>
+                    
+                    <h:outputLabel value="Confirmar Contraseña" />
+                    <p:password  id="psw2" value="#{usuario.usuarioObj.password}" feedback="true" 
+                                promptLabel="Introduzca una Contraseña" weakLabel="Debil"  
+                                goodLabel="Buena" strongLabel="Excelente"/>
+                     
+                      <h:outputLabel value="Estado" />
+                     <p:selectOneMenu id="estado" value="#{usuario.usuarioObj.estado}" >
+                        <f:selectItem itemLabel="Activo" itemValue="TRUE"/>
+                        <f:selectItem itemLabel="Inactivo" itemValue="FALSE"/>
+                     </p:selectOneMenu>
+                  
+                <h:inputHidden value="#{usuario.usuarioObj.idUsuario}" />
+                </h:panelGrid>
+                
+                <h:panelGrid id="pButon" columns="4">
+                    <p:commandButton value="Nuevo" id="btnThis" update="pUsuario" process="@this" actionListener="#{usuario.resetFail}" />
+                     <p:commandButton id="guardar" value="Guardar" onclick="cdConfirmar.show()" />
+                        <p:confirmDialog message="¿Desea Guardar La Informacion?" header="Guardar" severity="alert" widgetVar="cdConfirmar" >
+                            <p:commandButton value="si" action="#{usuario.AccionUsuario}" oncomplete="cdConfirmar.hide()" update=":table:dataTableUsuario :mensajes:mensaje" />
+                            <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                        </p:confirmDialog>               
+                   <p:commandButton value="Eliminar" onclick="cdConfirmarEliminar.show()" />
+                        <p:confirmDialog message="¿Desea Eliminar La Informaci&oacute;n?" header="Eliminar Usuario" severity="alert" widgetVar="cdConfirmarEliminar" >
+                            <p:commandButton value="Si" actionListener="#{usuario.DeleteUsuario}" oncomplete="cdConfirmarEliminar.hide()" update=":table:dataTableUsuario :mensajes:mensaje"/>
+                            <p:commandButton value="No" onclick="cdConfirmarEliminar.hide()" />
+                        </p:confirmDialog>
+                   
+                </h:panelGrid>
+                
+            </h:form>
+            
+            <h:form id="table">
+                <p:panel header="Datos Usuario" style="width: inherit">
+                    <p:dataTable id="dataTableUsuario" var="tabla" value="#{usuario.userList}"
+                                 rows="14" paginator="true" paginatorPosition="bottom" selectionMode="single"
+                                 selection="#{usuario.usuarioObj}" emptyMessage="NO SE ENCUENTRAN DATOS"
+                                 rowKey="#{tabla.idUsuario}" >
+                        <p:ajax event="rowSelect" update=":usuario:pUsuario" disabled=":usuario:pButon:guardar" />
+                        
+                        <p:column headerText="Login">#{tabla.usuario}</p:column>
+                        <p:column headerText="Nombres">#{tabla.nombre} #{tabla.apellido}</p:column>
+                        <p:column> 
+                              <f:facet name='header'>
+                                    <h:outputText value="Activo?"/>
+                                </f:facet>
+                            <p:selectBooleanCheckbox value="#{tabla.estado}" disabled="true"/>
+               
+                            
+                        </p:column>
+                        
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            
+        </p:panel>    
+    </ui:define>
+
+  
+
+</ui:composition>
+

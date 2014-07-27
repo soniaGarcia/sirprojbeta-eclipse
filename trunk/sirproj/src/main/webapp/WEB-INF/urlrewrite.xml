@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE urlrewrite PUBLIC "-//tuckey.org//DTD UrlRewrite 3.2//EN" "http://tuckey.org/res/dtds/urlrewrite3.2.dtd">
+<urlrewrite default-match-type="regex" use-query-string="true">	
+	<rule match-type="wildcard">
+		<from>/services/**</from>
+		<to>/services/$1</to>
+	</rule>
+	<rule>
+		<from>^/$</from>
+		<to type="redirect">%{context-path}/home</to>
+	</rule>
+</urlrewrite>

@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <el-resolver>
+            org.springframework.web.jsf.el.SpringBeanFacesELResolver
+        </el-resolver>
+    </application>
+ 	
+    <managed-bean>
+        <managed-bean-name>usuario</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.UsuarioBean</managed-bean-class>
+        
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>usuarioBo</property-name>
+            <value>#{usuarioBo}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ctgCatalogoBo</property-name>
+            <value>#{ctgCatalogoBo}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>util</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.util.UtilsBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>ctgCatalogoBo</property-name>
+            <value>#{ctgCatalogoBo}</value>
+        </managed-property>
+    </managed-bean>
+    
+    <managed-bean>
+        <managed-bean-name>proveedor</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.ProveedorBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>proveedorBo</property-name>
+            <value>#{proveedorBo}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>producto</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.ProductoBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>productoBo</property-name>
+            <value>#{productoBo}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>campoFormulario</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.CampoFormularioBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>campoFormularioBo</property-name>
+            <value>#{campoFormularioBo}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ctgCatalogoBo</property-name>
+            <value>#{ctgCatalogoBo}</value>
+        </managed-property>
+    </managed-bean>
+        
+    <managed-bean>
+        <managed-bean-name>formularioPlantilla</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.FormularioPlantillaBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>formularioPlantillaBo</property-name>
+            <value>#{formularioPlantillaBo}</value>
+        </managed-property>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>campoPlantilla</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.CampoPlantillaBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>campoPlantillaBo</property-name>
+            <value>#{campoPlantillaBo}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>ctgCatalogoBo</property-name>
+            <value>#{ctgCatalogoBo}</value>
+        </managed-property>
+    </managed-bean>
+    
+     <managed-bean>
+        <managed-bean-name>proceso</managed-bean-name>
+        <managed-bean-class>com.ars.sirproj.bean.ProcesoBean</managed-bean-class>
+	
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>procesoBo</property-name>
+            <value>#{procesoBo}</value>
+        </managed-property>
+         <managed-property>
+            <property-name>clienteBo</property-name>
+            <value>#{clienteBo}</value>
+        </managed-property>
+    </managed-bean>
+        
+
+</faces-config>

@@ -1,0 +1,66 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+   
+   <ui:define name="content">
+        <p:panel id="panelUsuario" header="Informacion Formulario" style="width: 750 px" >
+            #{campoFormulario.fillTable()}
+            #{campoFormulario.fillComboBoxRol()} 
+            <h:form id="usuario">
+              <p:growl id="growl" showDetail="true" life="3000" />  
+                <h:panelGrid id="pUsuario" columns="4" style="width: inherit">
+                     <h:outputLabel value="Etiqueta del campo" />
+                     <p:inputText value="#{campoFormulario.campoFormularioObj.etiqueta}" style="width: 400px"/>
+                    <h:outputLabel value="Largo del campo" />
+                    <p:inputText value="#{campoFormulario.campoFormularioObj.largocampo}" style="width: 400px"/>
+                    <h:outputLabel value="Tipo Dato:" />
+                    <p:selectOneMenu value="#{campoFormulario.ctgCatalogoObj.ctgCatId}">
+                         <f:selectItems value="#{campoFormulario.comboBoxRoles}" var="r" itemLabel="#{r.ctgCatNombre}" itemValue="#{r.ctgCatId}" />
+                    </p:selectOneMenu>   
+                    <h:inputHidden value="#{campoFormulario.campoFormularioObj.idCampo}" />
+                    <h:inputHidden value="#{campoFormulario.formularioprocesoObj.idFormulario}" />
+                </h:panelGrid>
+                
+                <h:panelGrid id="pButon" columns="4">
+                    <p:commandButton value="Nuevo" id="btnThis" update="pUsuario" process="@this" actionListener="#{campoFormulario.resetFail}" />
+                     <p:commandButton id="guardar" value="Guardar" onclick="cdConfirmar.show()" />
+                        <p:confirmDialog message="¿Desea Guardar La Informacion?" header="Guardar" severity="alert" widgetVar="cdConfirmar" >
+                            <p:commandButton value="si" action="#{campoFormulario.AccionCampoFormulario}" oncomplete="cdConfirmar.hide()" update=":table:dataTableUsuario" />
+                            <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                        </p:confirmDialog>               
+                   <p:commandButton value="Eliminar" onclick="cdConfirmarEliminar.show()" />
+                        <p:confirmDialog message="¿Desea Eliminar La Informaci&oacute;n?" header="Eliminar Usuario" severity="alert" widgetVar="cdConfirmarEliminar" >
+                            <p:commandButton value="Si" actionListener="#{campoFormulario.DeleteCampo}" oncomplete="cdConfirmarEliminar.hide()" update=":table:dataTableUsuario"/>
+                            <p:commandButton value="No" onclick="cdConfirmarEliminar.hide()" />
+                        </p:confirmDialog>
+                   
+                </h:panelGrid>
+                
+            </h:form>
+            
+            <h:form id="table">
+                <p:panel header="Campos Formulario" style="width: inherit">
+                    <p:dataTable id="dataTableUsuario" var="tabla" value="#{campoFormulario.campoList}"
+                                 rows="14" paginator="true" paginatorPosition="bottom" selectionMode="single"
+                                 selection="#{campoFormulario.campoFormularioObj}" emptyMessage="NO SE ENCUENTRAN DATOS"
+                                 rowKey="#{tabla.idCampo}" >
+                        <p:ajax event="rowSelect" update=":usuario:pUsuario" disabled=":usuario:pButon:guardar" />
+                        
+                        <p:column headerText="Etiqueta">#{tabla.etiqueta}</p:column>
+                        <p:column headerText="Largo">#{tabla.largocampo} </p:column>                       
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            
+        </p:panel>    
+    </ui:define>
+
+  
+
+</ui:composition>
+

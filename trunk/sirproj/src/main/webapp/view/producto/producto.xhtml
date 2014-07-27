@@ -1,0 +1,60 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+    <ui:define name="content">
+        <p:panel id="panelProducto" header="Informacion Producto" style="width: 750 px" >
+            #{producto.fillTable()}
+            <h:form id="producto">
+                <h:panelGrid id="pProducto" columns="4" style="width: inherit">
+                    <h:outputLabel value="Nombre" />
+                    <p:inputText value="#{producto.productoObj.nombre}" style="width: 400px" />
+                    <h:outputLabel value="Fecha Vencimiento" />
+                    <p:calendar value="#{producto.productoObj.fechaVto}" showButtonPanel="true" navigator="true" pattern="dd/MM/yyyy">
+                    </p:calendar>
+                    <h:outputLabel value="Descripci&oacute;n" />
+                    <p:inputText value="#{producto.productoObj.descripcion}" style="width: 400px" />
+                    <h:inputHidden value="#{producto.productoObj.idProducto}" />
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Nuevo" id="btnThis" update="pProducto" process="@this" actionListener="#{producto.resetFail()}" />
+
+                    <p:commandButton value="Guardar" onclick="cdConfirmar.show()" />
+                    <p:confirmDialog message="¿Desea Guardar La Informaci&oacute;n?" header="Guardar" severity="alert" widgetVar="cdConfirmar" >
+                        <p:commandButton value="si" actionListener="#{producto.AccionProducto}" oncomplete="cdConfirmar.hide()" update=":table:dataTableProducto pProducto" process="@this"/>
+                        <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                    </p:confirmDialog>               
+
+                    <p:commandButton value="Eliminar" onclick="cdConfirmarEliminar.show()" />
+                    <p:confirmDialog message="¿Desea Eliminar La Informaci&oacute;n?" header="Eliminar Producto" severity="alert" widgetVar="cdConfirmarEliminar" >
+                        <p:commandButton value="Si" actionListener="#{producto.deleteProductoInactivo()}" oncomplete="cdConfirmarEliminar.hide()" update=":table:dataTableProducto"/>
+                        <p:commandButton value="No" onclick="cdConfirmarEliminar.hide()" />
+                    </p:confirmDialog>
+                </h:panelGrid>
+
+            </h:form>
+
+            <h:form id="table">
+                <p:panel header="Datos Producto" style="width: inherit">
+                    <p:dataTable id="dataTableProducto" var="tabla" value="#{producto.productosList}"
+                                 rows="14" paginator="true" paginatorPosition="bottom" selectionMode="single"
+                                 selection="#{producto.productoObj}" emptyMessage="NO SE ENCUENTRAN DATOS"
+                                 rowKey="#{tabla.idProducto}" >
+                        <p:ajax event="rowSelect" update=":producto:pProducto" />
+
+                        <p:column headerText="Nombre">#{tabla.nombre}</p:column>
+                        <p:column headerText="Fecha Vencimiento">#{tabla.fechaVto}</p:column>
+                        <p:column headerText="Descripci&oacute;n">#{tabla.descripcion}</p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+        </p:panel>
+    </ui:define>
+</ui:composition>

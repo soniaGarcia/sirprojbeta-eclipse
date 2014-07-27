@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+ 
+    <head>
+        <title>SIRPROJ</title>
+        <meta name="viewport" content="width=device-width"/>
+    </head>
+    <body>
+      #{util.sessionActiva}
+       
+        <div style="border: 0pt solid #fbb; text-align: center;">
+        <table align="center">
+            <tr>
+                <td colspan="3"><h1>Sistema de Registro de Procesos Juridicos</h1></td>
+            </tr>
+            <tr>
+                <td colspan="2" width="700px"></td>
+                <td><b>Bienvenido:</b>   #{util.userSession}</td>
+                <td>#{util.sessionPermissionId} #{util.sessionPermission}</td>
+            </tr>
+            <tr>
+                <td><a href="../usuario/adminUsers.xhtml">Administracion de usuarios</a></td>
+                <td><a href="../login/logout.xhtml">Logout</a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="../proveedor/proveedor.xhtml">Administracion de proveedores</a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="../producto/producto.xhtml">Administraciosn de producto</a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="../proceso/createFormProceso.xhtml">Creacion de formulario</a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="../proceso/formDinamico.xhtml">Formulario Dinamico</a></td>
+            </tr>
+             <tr>
+                <td colspan="2"><a href="../formularioPlantilla/createPlantilla.xhtml">Creacion de plantilla de formulario</a></td>
+            </tr>
+            <tr>
+                <td colspan="2"><a href="../proceso/createProceso.xhtml">Creacion de proceso</a></td>
+            </tr>
+        </table>
+        </div>
+ 
+    </body>
+</html>

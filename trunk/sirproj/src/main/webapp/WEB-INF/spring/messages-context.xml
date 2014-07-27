@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+">
+
+<beans:bean id="messageSource"
+        class="org.springframework.context.support.ResourceBundleMessageSource">
+        <beans:property name="basenames">
+            <beans:value>com/ars/sirproj/bundle/message_spring_security</beans:value>
+        </beans:property>
+    </beans:bean>
+
+</beans:beans>

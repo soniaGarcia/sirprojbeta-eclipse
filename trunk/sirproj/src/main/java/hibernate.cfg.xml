@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+<!--    <property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+    <property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+    <property name="hibernate.connection.url">jdbc:postgresql://localhost:5432/SIRPROJ</property>
+    <property name="hibernate.connection.username">SIRPROJBD</property>
+    <property name="hibernate.connection.password">SIRPROJBDUSER</property>-->
+    <mapping class="com.ars.sirproj.dto.Producto"/>
+    <mapping class="com.ars.sirproj.dto.Departamento"/>
+    <mapping class="com.ars.sirproj.dto.Documentocita"/>
+    <mapping class="com.ars.sirproj.dto.Compra"/>
+    <mapping class="com.ars.sirproj.dto.Direccioncliente"/>
+    <mapping class="com.ars.sirproj.dto.Documentosubaudi"/>
+    <mapping class="com.ars.sirproj.dto.Ocupacion"/>
+    <mapping class="com.ars.sirproj.dto.Municipio"/>
+    <mapping class="com.ars.sirproj.dto.Cobro"/>
+    <mapping class="com.ars.sirproj.dto.Telefonocliente"/>
+    <mapping class="com.ars.sirproj.dto.Telefono"/>
+    <mapping class="com.ars.sirproj.dto.Cobrosubaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.Audiencia"/>
+    <mapping class="com.ars.sirproj.dto.Usuarioproceso"/>
+    <mapping class="com.ars.sirproj.dto.Proceso"/>
+    <mapping class="com.ars.sirproj.dto.Pago"/>
+    <mapping class="com.ars.sirproj.dto.Cita"/>
+    <mapping class="com.ars.sirproj.dto.Testigosubaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.CtgCatalogo"/>
+    <mapping class="com.ars.sirproj.dto.Campoformulario"/>
+    <mapping class="com.ars.sirproj.dto.Testigoaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.Listaproducto"/>
+    <mapping class="com.ars.sirproj.dto.Cliente"/>
+    <mapping class="com.ars.sirproj.dto.Titular"/>
+    <mapping class="com.ars.sirproj.dto.Juzgado"/>
+    <mapping class="com.ars.sirproj.dto.Documentoaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.Direccion"/>
+    <mapping class="com.ars.sirproj.dto.Telefonocontacto"/>
+    <mapping class="com.ars.sirproj.dto.Direccioncontacto"/>
+    <mapping class="com.ars.sirproj.dto.Contacto"/>
+    <mapping class="com.ars.sirproj.dto.Cobrocita"/>
+    <mapping class="com.ars.sirproj.dto.Usuario"/>
+    <mapping class="com.ars.sirproj.dto.Formularioproceso"/>
+    <mapping class="com.ars.sirproj.dto.Testigo"/>
+    <mapping class="com.ars.sirproj.dto.Subaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.Pais"/>
+    <mapping class="com.ars.sirproj.dto.Cobroaudiencia"/>
+    <mapping class="com.ars.sirproj.dto.Documento"/>
+    <mapping class="com.ars.sirproj.dto.DireccionclienteId"/>
+    <mapping class="com.ars.sirproj.dto.Proveedor"/>
+  </session-factory>
+</hibernate-configuration>
