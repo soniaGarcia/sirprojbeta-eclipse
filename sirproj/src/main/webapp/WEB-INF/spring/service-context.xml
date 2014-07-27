@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xmlns:beans="http://www.springframework.org/schema/beans" 
+             xmlns:jaxws="http://cxf.apache.org/jaxws"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+             http://cxf.apache.org/jaxws http://cxf.apache.org/schemas/jaxws.xsd
+">
+    
+    <!--Beans de usuario -->   
+    <beans:bean id="usuarioBo" class="com.ars.sirproj.bo.UsuarioBoImpl">
+        <beans:property name="usuarioDao" ref="usuarioDao" /> 
+    </beans:bean>
+
+    <beans:bean id="proveedorBo" class="com.ars.sirproj.bo.ProveedorBoImpl">
+        <beans:property name="proveedorDao" ref="proveedorDao" /> 
+    </beans:bean>
+    
+    <beans:bean id="productoBo" class="com.ars.sirproj.bo.ProductoBoImpl">
+        <beans:property name="productoDao" ref="productoDao" /> 
+    </beans:bean>
+   
+    <beans:bean id="ctgCatalogoBo" class="com.ars.sirproj.bo.CtgCatalogoBoImpl">
+        <beans:property name="ctgCatalogoDao" ref="ctgCatalogoDao" /> 
+    </beans:bean>
+    
+     <beans:bean id="campoFormularioBo" class="com.ars.sirproj.bo.CampoFormularioBoImpl">
+        <beans:property name="campoFormularioDao" ref="campoFormularioDao" /> 
+    </beans:bean>
+    
+    <beans:bean id="formularioPlantillaBo" class="com.ars.sirproj.bo.FormularioPlantillaBoImpl">
+        <beans:property name="formularioPlantillaDao" ref="formularioPlantillaDao" /> 
+    </beans:bean>
+    
+     <beans:bean id="campoPlantillaBo" class="com.ars.sirproj.bo.CampoPlantillaBoImpl">
+        <beans:property name="campoPlantillaDao" ref="campoPlantillaDao" /> 
+    </beans:bean>
+    
+     <beans:bean id="procesoBo" class="com.ars.sirproj.bo.ProcesoBoImpl">
+        <beans:property name="procesoDao" ref="procesoDao" /> 
+    </beans:bean>
+    
+     <beans:bean id="clienteBo" class="com.ars.sirproj.bo.ClienteBoImpl">
+        <beans:property name="clienteDao" ref="clienteDao" /> 
+    </beans:bean>
+    
+    <!-- Configuracion de servicio web services utilizando cxf -->
+    <beans:bean id="wsConsultaSirproj" class="com.ars.sirproj.ws.WSConsultaSirproj">
+	</beans:bean>
+
+	<beans:import resource="classpath:META-INF/cxf/cxf.xml" />
+	<beans:import resource="classpath:META-INF/cxf/cxf-extension-soap.xml" />
+	<beans:import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+	<jaxws:endpoint id="wsConsultaSirprojEndpoint" implementor="#wsConsultaSirproj" address="/WSConsultaSirproj" />
+
+</beans:beans>

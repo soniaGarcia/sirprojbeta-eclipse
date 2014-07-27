@@ -1,0 +1,124 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                 template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+
+
+    <ui:define name="content">
+        <p:panel id="panelCliente" header="Informacion Cliente" style="width: 750 px">
+            
+            <h:form id="mensajes">                
+                <p:growl id="mensaje" showDetail="true" life="10000" /> 
+            </h:form>
+                
+                <h:form id="datosCliente">
+                <h:panelGrid id="pCliente" columns="6">
+                    
+                    <h:outputLabel value="No:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.id_cliente}"  style="width: 400px" />
+                    
+                    <h:outputLabel value="Codigo:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.cod_cliente}"  style="width: 400px" />
+                    
+                    <h:outputLabel value="Nombre:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.nombre}" style="width: 400px" />
+
+                    <h:outputLabel value="Apellido:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.apellido}" style="width: 400px" />
+                    
+                    <h:outputLabel value="Pais:" />
+                    <p:selectOneMenu value="#{clienteManagedBean.selectedPais.id_pais}">
+                        <f:selectItems value="#{clienteManagedBean.comboBoxPais}" var="p" itemLabel="#{p.nombre}" itemValue="#{p.id_pais}" />
+                        <p:ajax listener="#{clienteManagedBean.fillComboBoxDepartamento()}" update="departamento" />
+                    </p:selectOneMenu>  
+                    
+                    <h:outputLabel value="Departamento:" />
+                    <p:selectOneMenu id="departamento" value="#{clienteManagedBean.selectedDepartamento.id_departamento}"  >     
+                        <f:selectItems value="#{clienteManagedBean.comboBoxDepartamento}" var="d" itemLabel="#{d.departamento}" itemValue="#{d.id_departamento}" />
+                        <p:ajax listener="#{clienteManagedBean.fillComboBoxMunicipios()}" update="municipio" />
+                    </p:selectOneMenu>  
+                              
+                    <h:outputLabel value="Municipio:" />
+                    <p:selectOneMenu id="municipio" value="#{clienteManagedBean.selectedCliente.id_municipio}"  >
+                        <f:selectItems value="#{clienteManagedBean.comboBoxMunicipio}" var="m" itemLabel="#{m.municipio}" itemValue="#{m.id_municipio}" />
+                        <p:ajax listener="#{clienteManagedBean.prueba()}" />
+                    </p:selectOneMenu>  
+                    
+                    
+                    <h:outputLabel value="DUI:"/>
+                    <p:inputMask value="#{clienteManagedBean.selectedCliente.dui}" style="width: 400px" mask="99999999-9?" />
+                    
+                    <h:outputLabel value="NIT"/>
+                    <p:inputMask value="#{clienteManagedBean.selectedCliente.nit}" style="width: 400px" mask="9999-999999-999-9?" />
+                    
+                    <h:outputLabel value="Estado Civil"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.estado_civil}" style="width: 400px" />
+
+                    <h:outputLabel value="Telefono"/>
+                    <p:inputMask value="#{clienteManagedBean.selectedCliente.telefono}" style="width: 400px" mask="9999-9999? "/>
+                    
+
+                    <h:outputLabel value="Celular"/>
+                    <p:inputMask value="#{clienteManagedBean.selectedCliente.celular}" style="width: 400px" mask="9999-9999? "/>
+
+                    <h:outputLabel value="Email:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.email}" style="width: 400px" />
+
+                    <h:outputLabel value="Ocupacion:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.ocupacion}" style="width: 400px" />
+
+                    <h:outputLabel value="Direccion:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.direccion}" style="width: 400px" />
+
+                    <h:outputLabel value="Estado:"/>
+                    <p:inputText value="#{clienteManagedBean.selectedCliente.estado}" style="width: 400px" />
+
+                    <h:outputLabel value="Fecha De Nacimiento:"/>
+                    <p:calendar value="#{clienteManagedBean.selectedCliente.fecha_nacimiento}" showButtonPanel="true" navigator="true" id="popupCal" />  
+                                      
+                                      
+                </h:panelGrid>
+                
+                   <h:panelGrid columns="2">
+                   <p:commandButton value="Nuevo" id="btnThis" process="@this" update="pCliente" /> 
+                     <p:commandButton value="Guardar" onclick="cdConfirmar.show()" />
+                     <p:confirmDialog message="¿Desea Guardar La Informacion?" header="Guardar" severity="alert" widgetVar="cdConfirmar">
+                        <p:commandButton value="si" actionListener="#{clienteManagedBean.AccionCliente}"  oncomplete="cdConfirmar.hide()" update=":table :mensajes:mensaje" />
+                        <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                    </p:confirmDialog>  
+                </h:panelGrid>        
+                    
+                </h:form>    
+                   
+                                     
+            
+                <h:form id="table">
+                <p:panel header="Datos del Cliente" style="width: inherit">
+                    <p:dataTable id="dataTableCliente" var="tablaC" value="#{clienteManagedBean.cliente}"
+                                 rows="15" paginator="true" paginatorPosition="bottom" selectionMode="single" 
+                                 selection="#{clienteManagedBean.selectedCliente}" emptyMessage="NO SE ENCUETRAN DATOS"
+                                 rowKey="#{tablaC.id_cliente}" >  
+                        <p:ajax event="rowSelect" update=":datosCliente:pCliente " />
+                        
+                        <p:column headerText="Codigo">#{tablaC.cod_cliente}</p:column>
+                        <p:column headerText="Nombre">#{tablaC.nombre}</p:column>
+                        <p:column headerText="Apellido">#{tablaC.apellido}</p:column>
+                        <p:column headerText="Dui">#{tablaC.dui}</p:column>
+                        <p:column headerText="Nit">#{tablaC.nit}</p:column>
+                        <p:column headerText="Estado Civil">#{tablaC.estado_civil}</p:column>
+                        
+                        
+                    </p:dataTable>
+                </p:panel>
+               </h:form>
+                
+            
+        </p:panel>
+    </ui:define>
+
+
+</ui:composition>

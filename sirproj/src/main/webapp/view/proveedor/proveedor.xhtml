@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core">
+
+    <ui:define name="content">
+        <p:panel id="panelProveedor" header="Informacion Proveedor" style="width: 750 px" >
+            #{proveedor.fillTable()}
+            <h:form id="proveedor">
+                <h:panelGrid id="pProveedor" columns="4" style="width: inherit">
+                    <h:outputLabel value="Nombre" />
+                    <p:inputText value="#{proveedor.proveedorObj.nombre}" style="width: 400px" />
+                    <h:outputLabel value="Tel&eacute;fono" />
+                    <p:inputMask value="#{proveedor.proveedorObj.telefono}" style="width: 400px" mask="9999-9999?" />
+                    <h:outputLabel value="Celular" />
+                    <p:inputMask value="#{proveedor.proveedorObj.celuar}" style="width: 400px" mask="9999-9999?" />
+                    <h:outputLabel value="Email" />
+                    <p:inputText value="#{proveedor.proveedorObj.email}" style="width: 400px" id="email" required="true" 
+                                 requiredMessage="Please enter your email address." validatorMessage="Invalid email format">
+                        <f:validateRegex pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$" />
+                    </p:inputText>
+                    <h:outputLabel value="Fecha Ingreso" />
+                    <p:calendar value="#{proveedor.proveedorObj.fechaIngreso}" showButtonPanel="true" navigator="true" pattern="dd/MM/yyyy">
+                    </p:calendar>
+                    <h:inputHidden value="#{proveedor.proveedorObj.idProveedor}" />
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="4">
+                    <p:commandButton value="Nuevo" id="btnThis" update="pProveedor" process="@this" actionListener="#{proveedor.resetFail}" />
+
+                    <p:commandButton value="Guardar" onclick="cdConfirmar.show()" />
+                    <p:confirmDialog message="¿Desea Guardar La Informacion?" header="Guardar" severity="alert" widgetVar="cdConfirmar" >
+                        <p:commandButton value="si" actionListener="#{proveedor.AccionProveedor}" oncomplete="cdConfirmar.hide()" update=":table:dataTableProveedor  pProveedor" process="@this"/>
+                        <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                    </p:confirmDialog>
+
+                    <p:commandButton value="Eliminar" onclick="cdConfirmarEliminar.show()" />
+                    <p:confirmDialog message="¿Desea Eliminar La Informaci&oacute;n?" header="Eliminar Proveedor" severity="alert" widgetVar="cdConfirmarEliminar" >
+                        <p:commandButton value="Si" actionListener="#{proveedor.delteProveedorInactivo()}" oncomplete="cdConfirmarEliminar.hide()" update=":table:dataTableProveedor"/>
+                        <p:commandButton value="No" onclick="cdConfirmarEliminar.hide()" />
+                    </p:confirmDialog>
+                </h:panelGrid>
+
+            </h:form>
+
+            <h:form id="table">
+                <p:panel header="Datos Proveedor" style="width: inherit">
+                    <p:dataTable id="dataTableProveedor" var="tabla" value="#{proveedor.proveedorList}"
+                                 rows="14" paginator="true" paginatorPosition="bottom" selectionMode="single"
+                                 selection="#{proveedor.proveedorObj}" emptyMessage="NO SE ENCUENTRAN DATOS"
+                                 rowKey="#{tabla.idProveedor}" >
+                        <p:ajax event="rowSelect" update=":proveedor:pProveedor" />
+
+                        <p:column headerText="Nombre">#{tabla.nombre}</p:column>
+                        <p:column headerText="Tel&eacute;fono">#{tabla.telefono}</p:column>
+                        <p:column headerText="Celular">#{tabla.celuar}</p:column>
+                        <p:column headerText="Email">#{tabla.email}</p:column>
+
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+
+        </p:panel>    
+    </ui:define>
+
+
+
+</ui:composition>

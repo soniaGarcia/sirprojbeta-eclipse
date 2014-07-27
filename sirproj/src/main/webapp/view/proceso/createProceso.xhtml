@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="./../../template.xhtml"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+   
+   <ui:define name="content">
+        <p:panel id="panelProceso" header="Informacion Formulario" style="width: 750 px" >
+            #{proceso.fillTable()}
+            <h:form id="proceso">
+              <p:growl id="growl" showDetail="true" life="3000" />  
+                <h:panelGrid id="pProceso" columns="4" style="width: inherit">
+                     <h:outputLabel value="Cliente" />
+                     <p:inputText value="#{proceso.clienteObj.primernombre}" style="width: 400px"/>
+                    <h:outputLabel value="Nombre del proceso:" />
+                    <p:inputText value="#{proceso.procesoObj.nombre}" style="width: 400px"/>
+                    <h:outputLabel value="Codigo del Proceso:" />
+                    <p:inputText value="#{proceso.procesoObj.codigo}" style="width: 400px"/>
+                     <h:outputLabel value="Descripcion del Proceso:" />
+                     <p:inputText value="#{proceso.procesoObj.descripcion}" style="width: 400px"/>
+                   
+                    <h:inputHidden value="#{proceso.clienteObj.codCliente}" />
+                    <h:inputHidden value="#{proceso.procesoObj.idProceso}" />
+                </h:panelGrid>
+                
+                <h:panelGrid id="pButon" columns="4">
+                    <p:commandButton value="Nuevo" id="btnThis" update="pProceso" process="@this" actionListener="#{proceso.resetFail}" />
+                     <p:commandButton id="guardar" value="Guardar" onclick="cdConfirmar.show()" />
+                        <p:confirmDialog message="¿Desea Guardar La Informacion?" header="Guardar" severity="alert" widgetVar="cdConfirmar" >
+                            <p:commandButton value="si" action="#{proceso.AccionProceso}" oncomplete="cdConfirmar.hide()" update=":table:dataTableProceso" />
+                            <p:commandButton value="no" onclick="cdConfirmar.hide()" />
+                        </p:confirmDialog>               
+                   <p:commandButton value="Eliminar" onclick="cdConfirmarEliminar.show()" />
+                        <p:confirmDialog message="¿Desea Eliminar La Informaci&oacute;n?" header="Eliminar Proceso" severity="alert" widgetVar="cdConfirmarEliminar" >
+                            <p:commandButton value="Si" actionListener="#{proceso.deleteProceso}" oncomplete="cdConfirmarEliminar.hide()" update=":table:dataTableProceso"/>
+                            <p:commandButton value="No" onclick="cdConfirmarEliminar.hide()" />
+                        </p:confirmDialog>
+                   
+                </h:panelGrid>
+                
+            </h:form>
+            
+            <h:form id="table">
+                <p:panel header="Procesos creados" style="width: inherit">
+                    <p:dataTable id="dataTableProceso" var="tabla" value="#{proceso.procesoList}"
+                                 rows="14" paginator="true" paginatorPosition="bottom" selectionMode="single"
+                                 selection="#{proceso.procesoObj}" emptyMessage="NO SE ENCUENTRAN DATOS"
+                                 rowKey="#{tabla.idProceso}" >
+                        <p:ajax event="rowSelect" update=":proceso:pProceso" disabled=":proceso:pButon:guardar" />
+                        
+                        <p:column headerText="Codigo">#{tabla.codigo}</p:column>
+                        <p:column headerText="Nombre">#{tabla.nombre}</p:column>
+                        <p:column headerText="Descripcion">#{tabla.descripcion} </p:column>                       
+                    </p:dataTable>
+                </p:panel>
+            </h:form>
+            
+        </p:panel>    
+    </ui:define>
+
+  
+
+</ui:composition>
+

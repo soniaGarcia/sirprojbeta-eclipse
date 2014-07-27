@@ -1,0 +1,37 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://java.sun.com/jsf/facelets"
+                template="template.xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:f="http://java.sun.com/jsf/core">
+   
+    
+    <ui:define name="content">
+        <p:panel id="panelUsuario" header="Informacion de Usuario" style=" width: 1200px">
+     
+            <h:form id="login" >
+            <h:panelGrid id="pLogin" columns="4">
+ 
+                    <h:outputLabel value="Usuario:" />
+                    <p:inputText value="#{usuario.user.usuario}" style="width: 400px" />                   
+
+                    <h:outputLabel value="Contraseña" />
+                    <p:password id="ps1" value="#{usuario.user.password}" feedback="true"   
+                                promptLabel="Introduzca una Contraseña" weakLabel="Debil"  
+                                goodLabel="Buena" strongLabel="Excelente" validatorMessage="Contraseña no iguales" />  
+
+                </h:panelGrid>
+                
+                <h:panelGrid columns="4" >
+                    <p:commandButton id="loginButton" value="Ingresar" actionListener="#{usuario.login}" />
+                </h:panelGrid>
+                
+            </h:form>
+                     
+        </p:panel>
+    </ui:define>
+
+    <!--asdfsadfasfsad-->
+
+</ui:composition>
